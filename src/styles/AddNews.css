@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+
+/*////////////////////////Source Code////////////////////////////*/
+
+
+/*General Styles*/
+* {
+    padding: 0;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #152056;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Nav Styles*/
+.app {
+    width: 390px;
+    height: 100vh;
+    box-shadow: 0px 20px 40px rgba(18, 34, 64, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.content{
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow: hidden;
+}
+
+
+.iconcerrar {
+    position: absolute;
+    height: 3.89%;
+    width: 8.42%;
+    top: 4.74%;
+    right: 84.78%;
+    bottom: 91.37%;
+    left: 6.8%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.nueva-publicacin {
+    position: absolute;
+    top: 39px;
+    left: 92px;
+    font-size: 18px;
+    font-weight: 600;
+    display: inline-block;
+    width: 192px;
+    height: 22px;
+}
+
+.buscador-icon {
+    position: absolute;
+    height: 6.16%;
+    width: 88.53%;
+    top: 10.71%;
+    right: 5.6%;
+    bottom: 83.13%;
+    left: 5.87%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.hoy,
+.noticias {
+    position: absolute;
+    height: 2.71%;
+    width: 21.87%;
+    top: 18.97%;
+    left: 24.53%;
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.noticias {
+    top: 18.84%;
+    left: 50.4%;
+    cursor: pointer;
+}
+
+.el-pas,
+.ley-de-sometimiento {
+    position: absolute;
+    font-size: 12px;
+    top: 0;
+    left: 0;
+    font-weight: 600;
+    display: inline-block;
+    width: 196px;
+    height: 59px;
+}
+
+.el-pas {
+    top: 93px;
+    font-size: var(--font-size-3xs);
+    font-weight: 300;
+    color: var(--color-darkgray);
+    height: 15px;
+}
+
+.imagen-icon {
+    position: absolute;
+    top: 0;
+    left: 218px;
+    border-radius: var(--br-9xs);
+    width: 106px;
+    height: 87px;
+    object-fit: cover;
+}
+
+.noticia2 {
+    position: absolute;
+    top: 127px;
+    left: 0;
+    width: 324px;
+    height: 108px;
+}
+
+.el-pas1,
+.gustavo-petro-envi {
+    position: absolute;
+    top: 59px;
+    left: 0;
+    font-weight: 300;
+    color: var(--color-gray);
+    display: inline-block;
+    width: 196px;
+    height: 36px;
+}
+.gustavo-petro-envi {
+    font-size: 12px;
+}
+
+.el-pas1 {
+    font-size: 10px;
+    top: 95px;
+    font-size: var(--font-size-3xs);
+    color: var(--color-darkgray);
+    height: 15px;
+}
+
+.imagen-icon1 {
+    position: absolute;
+    top: 1px;
+    left: 218px;
+    border-radius: var(--br-9xs);
+    width: 106px;
+    height: 87px;
+    object-fit: cover;
+}
+
+.noticia,
+.noticia1 {
+    position: absolute;
+    width: 324px;
+}
+
+.noticia1 {
+    top: 0;
+    left: 0;
+    height: 110px;
+    cursor: pointer;
+}
+
+.noticia {
+    top: 197px;
+    left: 26px;
+    height: 235px;
+    text-align: left;
+    font-size: var(--font-size-xs);
+}
+
+.traer-noticias-child {
+    position: absolute;
+    top: 175.5px;
+    left: -0.5px;
+    border-top: 1px solid var(--color-gray);
+    box-sizing: border-box;
+    width: 376px;
+    height: 1px;
+}
+
+.traer-noticias {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 812px;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-smi);
+    color: var(--color-darkslateblue);
+    font-family: var(--font-poppins);
+}

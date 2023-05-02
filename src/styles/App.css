@@ -1,0 +1,131 @@
+/*Imports*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap');
+
+/*////////////////////////Source Code////////////////////////////*/
+
+
+/*General Styles*/
+*{
+  padding: 0;
+  margin: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  color: #152056;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/*Start Screen*/
+.start-screen{
+  width: 390px;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);  
+  transition: all 1s;
+}
+
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textura img{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px 10px 12px;
+}
+
+/*Loader*/
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background:#152056;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/*App Styles*/
+.app{
+  width: 390px;
+  height: 100vh;
+  box-shadow: 0px 20px 40px rgba(18, 34, 64, 0.1);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.content-loading{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo img{
+    padding: 10px;
+    display: block;
+  }
