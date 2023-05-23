@@ -1,47 +1,79 @@
 import "./styles/AddNews.css";
+import { useState, useEffect } from "react";
 
 import logo from "./images/logo.png";
-import { AiFillCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BsSearch } from "react-icons/bs";
+
+import { collection, getDocs } from "firebase/firestore";
+import { db, storage } from "./modules/firebase";
 
 export function AddNews() {
+  const [newNews, setNewNews] = useState([]);
+
+  useEffect(() => {
+    getNewNews();
+  }, []);
+
+  function getNewNews() {
+    const newsCollection = collection(db, "noticias-nuevas");
+    getDocs(newsCollection)
+      .then((response) => {
+        const tr = response.docs.map((doc) => ({
+          data: doc.data(),
+          id: doc.id,
+        }));
+        console.log(tr);
+        setNewNews(tr);
+      })
+      .catch((error) => console.log(error.message));
+    return newsCollection;
+  }
+
   return (
     <div className="app">
       <div className="content" id="content">
         <div className="traer-noticias">
           <a className="iconcerrar">
-            <AiFillCloseCircle />
+            <AiOutlineCloseCircle />
           </a>
 
           <div className="nueva-publicacin">Nueva publicación</div>
-          <img className="buscador-icon" alt="" src={logo} />
+          {/* <img className="buscador-icon" alt="" src={logo} /> */}
+
+          <div className="buscador-icon">
+            <div className="container-3">
+              <span className="icon">{/* <i class="fa fa-search"></i> */}</span>
+              <input type="search" id="search" placeholder="Buscar noticia" />
+            </div>
+          </div>
 
           <div className="hoy">Hoy</div>
           <div className="noticias" id="noticiasText">
             Noticias
           </div>
           <div className="noticia">
-            <div className="noticia2">
-              <div className="ley-de-sometimiento">
-                Ley de sometimiento: Cepeda pide al fiscal entregar sus
-                recomendaciones completas
-              </div>
-              <div className="el-pas">El País</div>
-              <div className="gustavo-petro-envi">
-                Ley de sometimiento: Cepeda pide al fiscal entregar sus
-              </div>
-              <img className="imagen-icon1" alt="" src={logo} />
-            </div>
-            <div className="noticia1" id="noticia1Container">
-              <div className="ley-de-sometimiento">
-                Presidente Petro insiste en transición energética tras tragedia
-                en Sutatausa
-              </div>
-              <div className="gustavo-petro-envi">
-                Gustavo Petro envió sus condolencias a las familias de
-              </div>
-              <div className="el-pas1">El País</div>
-              <img className="imagen-icon1" alt="" src={logo} />
-            </div>
+            {newNews.map((item) => {
+              return (
+                <div className="noticiaTotal">
+                  <div
+                    className="noticia1"
+                    key={item.id}
+                    id="noticia1Container"
+                  >
+                    <div className="title-new">{item.data.title}</div>
+                    <div className="content-new">{item.data.content}</div>
+                    <div className="source-new">{item.data.source}</div>
+                  </div>
+                  <div className="img-container">
+                    <img
+                      className="imgNew"
+                      src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div className="traer-noticias-child"></div>
         </div>
