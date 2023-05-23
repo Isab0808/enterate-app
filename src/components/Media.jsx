@@ -51,7 +51,7 @@ export function Media() {
             return (
               <div className="content-media" key={item.id}>
                 <div className="multimedia">
-                  <video controls autoPlay>
+                  <video controls>
                     <source src={item.data.download} type="video/mp4" />
                   </video>
                 </div>
