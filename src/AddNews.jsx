@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import logo from "./images/logo.png";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { GiConfirmed } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
 
 import { collection, getDocs } from "firebase/firestore";
@@ -11,9 +12,16 @@ import { db, storage } from "./modules/firebase";
 export function AddNews() {
   const [newNews, setNewNews] = useState([]);
 
+  const [selectedNews, setSelectedNews] = useState(null);
+
   useEffect(() => {
     getNewNews();
   }, []);
+
+  function handleClickNews(item) {
+    console.log(item);
+    setSelectedNews(item);
+  }
 
   function getNewNews() {
     const newsCollection = collection(db, "noticias-nuevas");
@@ -34,8 +42,11 @@ export function AddNews() {
     <div className="app">
       <div className="content" id="content">
         <div className="traer-noticias">
-          <a className="iconcerrar">
+          <a className="iconcerrar" onClick={() => setSelectedNews(null)}>
             <AiOutlineCloseCircle />
+          </a>
+          <a className="iconconfirmar">
+            <GiConfirmed />
           </a>
 
           <div className="nueva-publicacin">Nueva publicación</div>
@@ -52,29 +63,57 @@ export function AddNews() {
           <div className="noticias" id="noticiasText">
             Noticias
           </div>
-          <div className="noticia">
-            {newNews.map((item) => {
-              return (
-                <div className="noticiaTotal">
-                  <div
-                    className="noticia1"
-                    key={item.id}
-                    id="noticia1Container"
-                  >
-                    <div className="title-new">{item.data.title}</div>
-                    <div className="content-new">{item.data.content}</div>
-                    <div className="source-new">{item.data.source}</div>
+
+          {!selectedNews ? (
+            <div className="noticia">
+              {newNews.map((item) => {
+                return (
+                  <div className="noticiaTotal">
+                    <div
+                      className="noticia1"
+                      key={item.id}
+                      id="noticia1Container"
+                      onClick={() => handleClickNews(item)}
+                    >
+                      <div className="title-new">{item.data.title}</div>
+                      <div className="content-new">{item.data.content}</div>
+                      <div className="source-new">{item.data.source}</div>
+                    </div>
+                    <div className="img-container">
+                      <img
+                        className="imgNew"
+                        src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
+                      />
+                    </div>
                   </div>
-                  <div className="img-container">
-                    <img
-                      className="imgNew"
-                      src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
-                    />
-                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="noticia">
+              <div
+                className="noticia1-ampliada"
+                key={selectedNews.id}
+                id="noticia1Container"
+              >
+                <div className="title-new-ampliada">
+                  {selectedNews.data.title}
                 </div>
-              );
-            })}
-          </div>
+                <div className="content-new-ampliada">
+                  {selectedNews.data.content}
+                </div>
+                <div className="img-container-ampliada">
+                  <img
+                    className="imgNew-ampliada"
+                    src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
+                  />
+                </div>
+                <div className="source-new-ampliada">
+                  {selectedNews.data.source}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="traer-noticias-child"></div>
         </div>
       </div>
