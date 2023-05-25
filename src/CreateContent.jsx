@@ -3,6 +3,10 @@ import texture from "./images/texture2.png";
 
 import { v4 } from "uuid";
 
+import { useState, useEffect } from "react";
+
+import { AddNews } from "./AddNews";
+
 import { storage } from "./modules/firebase";
 import { db } from "./modules/firebase";
 import { collection, addDoc } from "firebase/firestore";
@@ -13,6 +17,8 @@ import React, { useRef } from "react";
 
 export function CreateContent() {
   const fileInput = useRef(null);
+
+  const [showAddNews, setShowAddNews] = useState(false);
 
   const handleFileInput = async (event) => {
     try {
@@ -42,37 +48,47 @@ export function CreateContent() {
       });
   }
 
+  const addNews = () => {
+    setShowAddNews(true);
+  };
+
   const handleUploadClick = () => {
     document.getElementById("file").click();
   };
 
   return (
-    <div className="add" id="addNewscontent">
-      <div className="add-content">
-        <div className="texture">
-          <h3>Crear Contenido</h3>
-          <img src={texture} alt="" />
+    <div>
+      {showAddNews ? (
+        <AddNews />
+      ) : (
+        <div className="add" id="addNewscontent">
+          <div className="add-content">
+            <div className="texture">
+              <h3>Crear Contenido</h3>
+              <img src={texture} alt="" />
+            </div>
+            <div className="uploadsContent">
+              <a onClick={handleUploadClick}>
+                <span>Video/Imagen</span>
+              </a>
+              <input
+                type="file"
+                id="file"
+                className="files"
+                name="filename"
+                accept="image/*, video/*"
+                onChange={handleFileInput}
+                ref={fileInput}
+              />
+            </div>
+            <div className="LoadNews">
+              <a onClick={addNews}>
+                <span>Cargar Noticias</span>
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="uploadsContent">
-          <a onClick={handleUploadClick}>
-            <span>Video/Imagen</span>
-          </a>
-          <input
-            type="file"
-            id="file"
-            className="files"
-            name="filename"
-            accept="image/*, video/*"
-            onChange={handleFileInput}
-            ref={fileInput}
-          />
-        </div>
-        <div className="LoadNews">
-          <a>
-            <span>Cargar Noticias</span>
-          </a>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

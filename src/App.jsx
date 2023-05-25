@@ -5,8 +5,6 @@ import { Login } from "./Login.jsx";
 import { Menu } from "./components/Menu.jsx";
 import { Loading } from "./components/Loading.jsx";
 
-import { AddNews } from "./AddNews.jsx";
-
 export function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,9 +28,5 @@ export function App() {
   } else {
     content = <Login />;
   }
-  return (
-    <div>
-      <AddNews />
-    </div>
-  );
+  return <div>{content}</div>;
 }
