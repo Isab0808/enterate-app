@@ -28,5 +28,6 @@ export function App() {
   } else {
     content = <Login />;
   }
+
   return <div>{content}</div>;
 }

@@ -22,7 +22,6 @@ export function AddNews() {
   }, []);
 
   function handleClickNews(item) {
-    console.log(item);
     setSelectedNews(item);
   }
 
@@ -38,7 +37,6 @@ export function AddNews() {
           data: doc.data(),
           id: doc.id,
         }));
-        console.log(tr);
         setNewNews(tr);
       })
       .catch((error) => console.log(error.message));
@@ -48,7 +46,7 @@ export function AddNews() {
   return (
     <div>
       {addCategory ? (
-        <Category />
+        <Category datos={selectedNews} />
       ) : (
         <div className="app">
           <div className="content" id="content">
