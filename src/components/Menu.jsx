@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Menu.css";
-import { BiHomeAlt2, BiPlus } from "react-icons/bi";
+import { TiHome } from "react-icons/ti";
+import { BiPlus } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 
 import { ContentMediaMain } from "../ContentMediaMain.jsx";
@@ -48,14 +49,14 @@ export function Menu() {
             onClick={() => change("profile")}
           >
             <svg className="icon">
-              <CgProfile />
+              <CgProfile size={30} />
             </svg>
           </a>
         </div>
         <div className="navbar__item -blue">
           <a id="home" className="navbar__icon" onClick={() => change("media")}>
             <svg className="icon">
-              <BiHomeAlt2 />
+              <TiHome size={30} />
             </svg>
           </a>
         </div>
@@ -66,7 +67,7 @@ export function Menu() {
             onClick={() => change("add")}
           >
             <svg className="icon">
-              <BiPlus />
+              <BiPlus size={30} />
             </svg>
           </a>
         </div>

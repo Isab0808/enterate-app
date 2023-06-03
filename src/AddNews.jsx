@@ -2,8 +2,8 @@ import "./styles/AddNews.css";
 import { useState, useEffect } from "react";
 
 import logo from "./images/logo.png";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import { GiConfirmed } from "react-icons/gi";
+import { MdOutlineCancel } from "react-icons/md";
+import { BsCheckCircle } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 
 import { collection, getDocs } from "firebase/firestore";
@@ -29,6 +29,13 @@ export function AddNews() {
     setAddCateory(true);
   }
 
+  function differentClose() {
+    if (selectedNews != null) setSelectedNews(null);
+    else {
+      console.log("Retroceder a la pantalla anterior");
+    }
+  }
+
   function getNewNews() {
     const newsCollection = collection(db, "noticias-nuevas");
     getDocs(newsCollection)
@@ -51,12 +58,14 @@ export function AddNews() {
         <div className="app">
           <div className="content" id="content">
             <div className="traer-noticias">
-              <a className="iconcerrar" onClick={() => setSelectedNews(null)}>
-                <AiOutlineCloseCircle />
+              <a className="iconcerrar" onClick={() => differentClose()}>
+                <MdOutlineCancel size={30} />
               </a>
-              <a className="iconconfirmar" onClick={() => confirmCategory()}>
-                <GiConfirmed />
-              </a>
+              {selectedNews != null ? (
+                <a className="iconconfirmar" onClick={() => confirmCategory()}>
+                  <BsCheckCircle size={28} style={{ fontWeight: 100 }} />
+                </a>
+              ) : null}
 
               <div className="nueva-publicacin">Nueva publicación</div>
               {/* <img className="buscador-icon" alt="" src={logo} /> */}
