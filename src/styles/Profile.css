@@ -1,6 +1,6 @@
 .texture-register,
 .texture-profile {
-  height: 40vh;
+  height: 33vh;
   width: 390px;
   display: flex;
   align-items: center;
@@ -18,7 +18,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: translateY(-50px);
 }
 
 .profile-img img {
@@ -51,14 +50,14 @@
   position: absolute;
   width: 390px;
   height: 60vh;
-  transform: translateY(-10vh);
   background-color: #fff;
 }
 
 .options-profile {
+  border-radius: 25px;
   position: relative;
   width: 390px;
-  height: 10vh;
+  height: 8vh;
   background-color: #fff;
   display: flex;
   justify-content: space-between;

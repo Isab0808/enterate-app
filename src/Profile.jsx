@@ -35,7 +35,7 @@ export function Profile() {
     <div className="profile" id="profile">
       <div className="texture-profile">
         <a id="logout" onClick={() => logout()}>
-          <FiLogOut />
+          <FiLogOut size={25} />
         </a>
         <div className="profile-img">
           <h3>Profile</h3>
