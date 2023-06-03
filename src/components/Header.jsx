@@ -38,7 +38,7 @@ export function Header() {
         </a>
         <a>
           <i>
-            <ImSearch />
+            <ImSearch size={18} />
           </i>
         </a>
       </div>
