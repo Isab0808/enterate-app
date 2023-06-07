@@ -1,52 +1,51 @@
 import "./styles/CreateContent.css";
 import texture from "./images/texture2.png";
 
-import { v4 } from "uuid";
-
 import { useState, useEffect } from "react";
 
 import { AddNews } from "./AddNews";
-
-import { storage } from "./modules/firebase";
-import { db } from "./modules/firebase";
-import { collection, addDoc } from "firebase/firestore";
-
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { Menu } from "./components/Menu";
 
 import React, { useRef } from "react";
+import { Category } from "./components/Category";
 
 export function CreateContent() {
   const fileInput = useRef(null);
 
   const [showAddNews, setShowAddNews] = useState(false);
+  const [showAddMedia, setShowAddMedia] = useState(false);
+
+  const [video, setVideo] = useState();
 
   const handleFileInput = async (event) => {
     try {
-      const storageRef = ref(storage, "tendencias/" + v4());
-      await uploadBytes(storageRef, event.target.files[0]);
-      const url = await getDownloadURL(storageRef);
-      uploadData(url);
+      // const storageRef = ref(storage, "tendencias/" + v4());
+      // await uploadBytes(storageRef, event.target.files[0]);
+      // const url = await getDownloadURL(storageRef);
+      // uploadData(url);
+      await setVideo(event.target.files[0]);
+      setShowAddMedia(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  function uploadData(url) {
-    const newsCollection = collection(db, "news");
-    addDoc(newsCollection, {
-      author: "Isabella",
-      category: "Politica",
-      short:
-        "Noticia de ultima hora por posible dictadura del presidente petro ",
-      download: url,
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
-  }
+  // function uploadData(url) {
+  //   const newsCollection = collection(db, "news");
+  //   addDoc(newsCollection, {
+  //     author: "Isabella",
+  //     category: "Politica",
+  //     short:
+  //       "Noticia de ultima hora por posible dictadura del presidente petro ",
+  //     download: url,
+  //   })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error.message);
+  //     });
+  // }
 
   const addNews = () => {
     setShowAddNews(true);
@@ -59,7 +58,12 @@ export function CreateContent() {
   return (
     <div>
       {showAddNews ? (
-        <AddNews />
+        <div>
+          <AddNews />
+          <Menu />
+        </div>
+      ) : showAddMedia ? (
+        <Category datos={{ video: video }} type="video" />
       ) : (
         <div className="add" id="addNewscontent">
           <div className="add-content">

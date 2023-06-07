@@ -53,7 +53,7 @@ export function AddNews() {
   return (
     <div>
       {addCategory ? (
-        <Category datos={selectedNews} />
+        <Category datos={selectedNews} type="text" />
       ) : (
         <div className="app">
           <div className="content" id="content">

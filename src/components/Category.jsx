@@ -2,8 +2,12 @@ import "../styles/Category.css";
 
 import { useState, useEffect } from "react";
 
+import { v4 } from "uuid";
+
 import { db } from "../modules/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { storage } from "../modules/firebase";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
@@ -12,8 +16,9 @@ export function Category(props) {
     categoria1: false,
     categoria2: false,
     categoria3: false,
-    categoria4: false,
   });
+
+  const [isOpen, setIsOpen] = useState(true);
 
   const [textareaValue, setTextareaValue] = useState("");
 
@@ -21,13 +26,7 @@ export function Category(props) {
     setTextareaValue(event.target.value);
   };
 
-  console.log(props.datos.data);
-
-  const handleButtonPublish = () => {
-    const categoriasTrue = Object.entries(categorias)
-      .filter(([_, valor]) => valor === true)
-      .map(([clave, _]) => clave);
-
+  const saveText = (categoriasTrue) => {
     const datos = {
       description: textareaValue,
       title: props.datos.data.title,
@@ -38,16 +37,60 @@ export function Category(props) {
       categories: categoriasTrue,
     };
 
-    const newsCollection = collection(db, "tendencias");
+    const newsCollection = collection(db, "noticias");
 
     addDoc(newsCollection, datos)
       .then((response) => {
         console.log(response);
         //cambiar de pestaña
+        setIsOpen(false);
       })
       .catch((error) => {
         console.error(error.message);
       });
+  };
+
+  const saveVideo = async (categoriasTrue) => {
+    try {
+      const storageRef = ref(storage, "tendencias/" + v4());
+      await uploadBytes(storageRef, props.datos.video);
+      const url = await getDownloadURL(storageRef);
+      uploadData(url, categoriasTrue);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  function uploadData(url, categoriasTrue) {
+    const newsCollection = collection(db, "noticias");
+    addDoc(newsCollection, {
+      author: "Isabella",
+      category: "Politica",
+      description: textareaValue,
+      short:
+        "Noticia de ultima hora por posible dictadura del presidente petro ",
+      download: url,
+      categories: categoriasTrue,
+    })
+      .then((response) => {
+        console.log(response);
+        setIsOpen(false);
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  }
+
+  const handleButtonPublish = () => {
+    const categoriasTrue = Object.entries(categorias)
+      .filter(([_, valor]) => valor === true)
+      .map(([clave, _]) => clave);
+
+    if (props.type === "text") {
+      saveText(categoriasTrue);
+    } else if (props.type === "video") {
+      saveVideo(categoriasTrue);
+    }
   };
 
   const handleCheckboxChange = (event) => {
@@ -62,6 +105,10 @@ export function Category(props) {
     //console.log(categorias);
   }, [categorias]);
 
+  // if (!isOpen) {
+  //   return null;
+  // }
+
   return (
     <div className="app">
       <div className="categora">
@@ -73,10 +120,15 @@ export function Category(props) {
           </a>
           <div className="nuevaPublicacin">Nueva publicación</div>
           <div className="new-title">
-            <p>{props.datos.data.title}</p>
+            {props.type == "text" ? (
+              <p>{props.datos.data.title}</p>
+            ) : (
+              <video controls>
+                <source src={props.datos.video} type="video/mp4" />
+              </video>
+            )}
           </div>
         </div>
-        {/* <img className={styles.pestaafondoIcon} alt="" src="/pestaafondo.svg" /> */}
         <div className="description-news">
           <textarea
             type="text"
@@ -96,7 +148,7 @@ export function Category(props) {
               name="categoria1"
               onChange={handleCheckboxChange}
             />
-            <div className="categora1">Categoría 1</div>
+            <div className="categora1">Reforma Pensional</div>
           </div>
           <div className="categoria2">
             <input
@@ -104,7 +156,7 @@ export function Category(props) {
               name="categoria2"
               onChange={handleCheckboxChange}
             />
-            <div className="categora1">Categoría 2</div>
+            <div className="categora1">Reforma a la Salud</div>
           </div>
           <div className="categoria3">
             <input
@@ -112,15 +164,7 @@ export function Category(props) {
               name="categoria3"
               onChange={handleCheckboxChange}
             />
-            <div className="categora1">Categoría 3</div>
-          </div>
-          <div className="categoria4">
-            <input
-              type="checkbox"
-              name="categoria4"
-              onChange={handleCheckboxChange}
-            />
-            <div className="categora1">Categoría 4</div>
+            <div className="categora1">Reforma Laboral</div>
           </div>
           <div className="botonpublicar">
             <button className="publicar" onClick={handleButtonPublish}>

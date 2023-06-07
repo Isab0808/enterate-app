@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "./modules/firebase.js";
 import texture from "./images/texture-profile.png";
+import photoDefault from "./images/profile.png";
 import "./styles/Profile.css";
 
 import { FiLogOut } from "react-icons/fi";
 import { RxTable } from "react-icons/rx";
+
+import { db } from "./modules/firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export function Profile() {
   const [user, setUser] = useState(null);
@@ -24,9 +28,39 @@ export function Profile() {
         email: u.email,
         photoURL: u.photoURL,
       };
+      if (u2.displayName == null) {
+        const d = await getDocumentByEmail(u2.email);
+        console.log(d);
+        u2.displayName = d.name + " " + d.lastname;
+      }
+      if (u2.photoURL == null) {
+        u2.photoURL = photoDefault;
+      }
       setUser(u2);
     });
   }, []);
+
+  async function getDocumentByEmail(email) {
+    const noticiasCollection = collection(db, "users");
+    const q = query(noticiasCollection, where("email", "==", email));
+
+    try {
+      const querySnapshot = await getDocs(q);
+      let documents = {};
+      querySnapshot.forEach((doc) => {
+        // Aquí puedes obtener los datos de cada documento que coincide con el correo electrónico
+        const data = doc.data();
+        documents = {
+          name: data.name,
+          lastname: data.lastname,
+        };
+      });
+      return documents;
+    } catch (error) {
+      console.error("Error al obtener los documentos:", error);
+      return [];
+    }
+  }
 
   if (!user) {
     return null;
@@ -41,7 +75,6 @@ export function Profile() {
           <h3>Profile</h3>
           <img src={user.photoURL} alt="" />
           <h2>{user.displayName}</h2>
-          <h4>{user.email}</h4>
         </div>
         <img src={texture} alt="texture-profile" />
       </div>

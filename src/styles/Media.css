@@ -75,3 +75,23 @@ h6 {
     text-decoration: underline;
     cursor: pointer;
 }
+
+
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .action-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 18px;
+  }
+  
+  .action-button:hover {
+    color: #ff0000; /* Color de resaltado al pasar el cursor por encima */
+  }

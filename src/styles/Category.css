@@ -253,3 +253,9 @@
 .new-title p {
     text-align: center;
 }
+
+.new-title video {
+    width: 390px;
+    height: 125%;
+    border: none;
+}
