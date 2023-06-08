@@ -8,36 +8,41 @@ import { db } from "../modules/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { storage } from "../modules/firebase";
 import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { auth } from "../modules/firebase.js";
 
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { async } from "@firebase/util";
 
 export function Category(props) {
   const [categorias, setCategorias] = useState({
-    categoria1: false,
-    categoria2: false,
-    categoria3: false,
+    reforma_pensional: false,
+    reforma_a_la_salud: false,
+    reforma_laboral: false,
   });
 
   const [isOpen, setIsOpen] = useState(true);
 
   const [textareaValue, setTextareaValue] = useState("");
 
+  const [user, setUser] = useState(null);
+
   const handleTextareaChange = (event) => {
     setTextareaValue(event.target.value);
   };
 
-  const saveText = (categoriasTrue) => {
+  const saveText = async (categoriasTrue) => {
     const datos = {
       description: textareaValue,
       title: props.datos.data.title,
       content: props.datos.data.content,
       source: props.datos.data.source,
-      date: new Date(),
       imgUrl: "",
-      categories: categoriasTrue,
+      category: categoriasTrue,
+      type: "texto",
+      author: user,
     };
 
-    const newsCollection = collection(db, "noticias");
+    const newsCollection = collection(db, "tendencias");
 
     addDoc(newsCollection, datos)
       .then((response) => {
@@ -50,6 +55,43 @@ export function Category(props) {
       });
   };
 
+  useEffect(() => {
+    auth.onAuthStateChanged(async (u) => {
+      const u2 = {
+        displayName: u.displayName,
+        email: u.email,
+      };
+      if (u2.displayName == null) {
+        const d = await getDocumentByEmail(u2.email);
+        console.log(d);
+        u2.displayName = d.name + " " + d.lastname;
+      }
+      setUser(u2);
+    });
+  }, []);
+
+  async function getDocumentByEmail(email) {
+    const noticiasCollection = collection(db, "users");
+    const q = query(noticiasCollection, where("email", "==", email));
+
+    try {
+      const querySnapshot = await getDocs(q);
+      let documents = {};
+      querySnapshot.forEach((doc) => {
+        // Aquí puedes obtener los datos de cada documento que coincide con el correo electrónico
+        const data = doc.data();
+        documents = {
+          name: data.name,
+          lastname: data.lastname,
+        };
+      });
+      return documents;
+    } catch (error) {
+      console.error("Error al obtener los documentos:", error);
+      return [];
+    }
+  }
+
   const saveVideo = async (categoriasTrue) => {
     try {
       const storageRef = ref(storage, "tendencias/" + v4());
@@ -61,16 +103,14 @@ export function Category(props) {
     }
   };
 
-  function uploadData(url, categoriasTrue) {
-    const newsCollection = collection(db, "noticias");
+  async function uploadData(url, categoriasTrue) {
+    const newsCollection = collection(db, "news");
     addDoc(newsCollection, {
-      author: "Isabella",
-      category: "Politica",
+      author: user.displayName,
       description: textareaValue,
-      short:
-        "Noticia de ultima hora por posible dictadura del presidente petro ",
       download: url,
-      categories: categoriasTrue,
+      category: categoriasTrue,
+      type: "video",
     })
       .then((response) => {
         console.log(response);
@@ -82,9 +122,12 @@ export function Category(props) {
   }
 
   const handleButtonPublish = () => {
+    console.log(Object.entries(categorias));
     const categoriasTrue = Object.entries(categorias)
       .filter(([_, valor]) => valor === true)
-      .map(([clave, _]) => clave);
+      .map(([clave, _]) => clave)
+      .map((valor) => valor.replace("_", " "))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
 
     if (props.type === "text") {
       saveText(categoriasTrue);
@@ -145,7 +188,7 @@ export function Category(props) {
           <div className="categoria1">
             <input
               type="checkbox"
-              name="categoria1"
+              name="reforma_pensional"
               onChange={handleCheckboxChange}
             />
             <div className="categora1">Reforma Pensional</div>
@@ -153,7 +196,7 @@ export function Category(props) {
           <div className="categoria2">
             <input
               type="checkbox"
-              name="categoria2"
+              name="reforma_a_la_salud"
               onChange={handleCheckboxChange}
             />
             <div className="categora1">Reforma a la Salud</div>
@@ -161,7 +204,7 @@ export function Category(props) {
           <div className="categoria3">
             <input
               type="checkbox"
-              name="categoria3"
+              name="reforma_laboral"
               onChange={handleCheckboxChange}
             />
             <div className="categora1">Reforma Laboral</div>

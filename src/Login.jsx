@@ -85,9 +85,6 @@ export function Login() {
               <div className="authentication">
                 <h3>Ingresa con</h3>
                 <div className="btn-auth">
-                  <button className="btn" id="Facebook-auth" type="submit">
-                    <FaFacebookF />
-                  </button>
                   <button
                     className="btn"
                     id="Google-auth"

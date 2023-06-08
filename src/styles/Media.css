@@ -95,3 +95,65 @@ h6 {
   .action-button:hover {
     color: #ff0000; /* Color de resaltado al pasar el cursor por encima */
   }
+
+  .screen-box .buttons {
+    position: absolute;
+    left: 87%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .screen-box .buttons a {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    margin: 5px 0px;
+  }
+  
+  .screen-box .buttons a>i {
+    color: #fff;
+  }
+  
+  .options {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 15px 15px 0px 0px;
+    background-color: #000;
+  }
+  
+  .white {
+    color: #fff;
+  }
+  
+  .options a {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .options h3 {
+    color: #fff;
+  }
+
+
+  .titulo-content {
+    background-color: #fff;
+    width: 390px;
+    height: 55vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .titulo-content p {
+    text-align: center;
+    padding-left: 15%;
+    padding-right: 15%;
+    font-size: 20px;
+    font-weight: 600;
+  }

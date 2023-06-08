@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import "../styles/Media.css";
 
+import { AiOutlineDoubleRight } from "react-icons/ai";
+
 import { collection, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import { db, storage } from "../modules/firebase";
@@ -11,6 +13,13 @@ export function Media() {
   const [notice, setNotice] = useState([]);
 
   const [join, setJoin] = useState([]);
+
+  const options = [
+    "Reforma pensional",
+    "Reforma a la salud",
+    "Reforma laboral",
+  ];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
   useEffect(() => {
     getNews();
@@ -73,23 +82,37 @@ export function Media() {
   };
 
   useEffect(() => {
-    const combineLists = () => {
-      const combined = [...news, ...notice];
-      //const shuffled = combined.sort(() => Math.random() - 0.5);
+    const combined = [...news, ...notice];
+    //const ordenado = combined.sort(compareByCategoria);
+    const filtered = combined.filter((item) =>
+      item.data.category.includes(selectedOption)
+    );
+    setJoin(filtered);
+  }, [selectedOption, news, notice]);
 
-      const ordenado = combined.sort(compareByCategoria);
-      setJoin(ordenado);
-    };
+  const handleOptionChange = () => {
+    const currentIndex = options.indexOf(selectedOption);
+    const nextIndex = (currentIndex + 1) % options.length;
+    setSelectedOption(options[nextIndex]);
 
-    combineLists();
-  }, [news, notice]);
-
-  useEffect(() => {
-    console.log(join);
-  }, [join]);
+    const combined = [...news, ...notice];
+    const ordenado = combined.sort(compareByCategoria);
+    const filtered = combined.filter((item) =>
+      item.data.category.includes(selectedOption)
+    );
+    setJoin(filtered);
+  };
 
   return (
     <div>
+      <div className="options">
+        <h3 id="tendencias">{selectedOption}</h3>
+        <a>
+          <i onClick={handleOptionChange}>
+            <AiOutlineDoubleRight size={18} />
+          </i>
+        </a>
+      </div>
       <div className="news" id="news">
         <div>
           {join.map((item) => {
@@ -101,7 +124,9 @@ export function Media() {
                       <source src={item.data.download} type="video/mp4" />
                     </video>
                   ) : (
-                    <img src={item.data.imgUrl} />
+                    <div className="titulo-content">
+                      <p>{item.data.title}</p>
+                    </div>
                   )}
                 </div>
                 <div className="description">

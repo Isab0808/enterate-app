@@ -179,28 +179,30 @@
 }
 
 .publicar {
-    position: absolute;
-    height: 80%;
-    width: 57.69%;
-    top: 11.11%;
-    left: 21.79%;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: #F9B166;
+    border: none;
+    border-radius: 27.5px;
+    color: #fff;
+    width: 156px;
+    height: 45px;
 }
 
 .botonpublicar {
     position: absolute;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 5.54%;
     width: 41.6%;
-    top: 88.18%;
+    top: 83%;
     right: 6.4%;
     bottom: 6.28%;
     left: 52%;
     text-align: center;
-    font-size: var(--font-size-sm);
-    color: var(--color-white);
+    color: #fff;
 }
 
 .description-news {
