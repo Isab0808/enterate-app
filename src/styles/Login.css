@@ -137,7 +137,7 @@ body {
 .btn-auth {
     width: 180px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
@@ -153,11 +153,14 @@ body {
 
 .authentication span {
     margin-top: 35px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #152056;
 }
 
 .authentication a {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 13px;
+    font-weight: 500;
     color: #fff;
     text-decoration: none;
     cursor: pointer;

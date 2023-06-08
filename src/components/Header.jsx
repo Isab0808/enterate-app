@@ -33,9 +33,6 @@ export function Header() {
         <a id="tendencias" onClick={() => change("media")}>
           Tendencias
         </a>
-        {/* <a id="noticias" onClick={() => change("trend")}>
-          noticias
-        </a> */}
         <a>
           <i>
             <ImSearch size={18} />
