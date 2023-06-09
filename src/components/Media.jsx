@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import "../styles/Media.css";
 
-import { AiOutlineHeart, AiOutlineDoubleRight } from "react-icons/ai";
+import {
+  AiOutlineHeart,
+  AiOutlineDoubleRight,
+  AiFillHeart,
+} from "react-icons/ai";
 import { BiComment } from "react-icons/bi";
 import { BsSend } from "react-icons/bs";
 import { BiBookmark } from "react-icons/bi";
@@ -21,6 +25,8 @@ export function Media() {
   const [join, setJoin] = useState([]);
 
   const [ampliada, setAmpliada] = useState(null);
+
+  const [isLike, setIsLike] = useState([]);
 
   const options = [
     "Reforma pensional",
@@ -113,6 +119,7 @@ export function Media() {
 
   const handleLike = (id, index) => {
     // Lógica para manejar el evento de "Me gusta"
+    setIsLike([...isLike, id]);
     // Encontrar el índice del elemento con el id dado en el array 'join'
     console.log(index);
     console.log("entrada:");
@@ -187,7 +194,11 @@ export function Media() {
                           className="action-button"
                           onClick={() => handleLike(item.id, index)}
                         >
-                          <AiOutlineHeart size={30} />
+                          {isLike.includes(item.id) ? (
+                            <AiFillHeart size={30} color="#F9B166" />
+                          ) : (
+                            <AiOutlineHeart size={30} />
+                          )}
                         </button>
                         <button className="action-button">
                           <BiComment size={30} />
