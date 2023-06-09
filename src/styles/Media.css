@@ -18,15 +18,17 @@
 }
 
 .multimedia {
-    display: block;
     width: 390px;
     height: 55vh;
+    position: relative;
 }
 
 .multimedia video {
     width: 390px;
     height: 55vh;
     border: none;
+    top: 0;
+    right: 0;
 }
 
 .multimedia img {
@@ -82,18 +84,19 @@ h6 {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+    flex-direction: column;
+    bottom: 50px;
+    right: 15px;
+    position: absolute;
   }
   
   .action-button {
-    background-color: transparent;
+    background: none;
+    color: #fff;
+    border-color: #fff;
     border: none;
     cursor: pointer;
-    color: #000;
     font-size: 18px;
-  }
-  
-  .action-button:hover {
-    color: #ff0000; /* Color de resaltado al pasar el cursor por encima */
   }
 
   .screen-box .buttons {
@@ -137,23 +140,36 @@ h6 {
     cursor: pointer;
   }
 
-  .options h3 {
+  .options h4 {
     color: #fff;
+    margin-left: 21%;
   }
 
 
   .titulo-content {
-    background-color: #fff;
+    background-color: #14297C;
     width: 390px;
     height: 55vh;
     display: flex;
     align-items: center;
+    flex-direction: column;
+    column-count: 2;
+    justify-content: center;
   }
 
-  .titulo-content p {
+  .titulo-noticia {
     text-align: center;
     padding-left: 15%;
     padding-right: 15%;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 550;
+    color: #fff;
+  }
+
+  .fuente-noticia {
+    color: #fff;
+    padding-left: 15%;
+    padding-right: 15%;
+    font-size: 15px;
+    font-weight: 250;
   }

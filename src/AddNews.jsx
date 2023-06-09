@@ -83,7 +83,6 @@ export function AddNews() {
                 </div>
               </div>
 
-              <div className="hoy">Hoy</div>
               <div className="noticias" id="noticiasText">
                 Noticias
               </div>
@@ -100,14 +99,13 @@ export function AddNews() {
                           onClick={() => handleClickNews(item)}
                         >
                           <div className="title-new">{item.data.title}</div>
-                          <div className="content-new">{item.data.content}</div>
+                          <div className="content-new">
+                            {item.data.short.substring(0, 90)}...
+                          </div>
                           <div className="source-new">{item.data.source}</div>
                         </div>
                         <div className="img-container">
-                          <img
-                            className="imgNew"
-                            src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
-                          />
+                          <img className="imgNew" src={item.data.imgUrl} />
                         </div>
                       </div>
                     );
@@ -129,7 +127,7 @@ export function AddNews() {
                     <div className="img-container-ampliada">
                       <img
                         className="imgNew-ampliada"
-                        src="https://www.eltiempo.com/files/article_main_1200/files/crop/uploads/2023/05/22/646c191fb46ff.r_1684807491405.0-0-1531-919.jpeg"
+                        src={selectedNews.data.imgUrl}
                       />
                     </div>
                     <div className="source-new-ampliada">

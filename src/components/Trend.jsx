@@ -64,10 +64,7 @@ export function Trend() {
                   </div>
                   <h6>{item.data.category}</h6>
                   <h4 id="short-description">{item.data.title}</h4>
-                  <p>
-                    {item.data.content}
-                    <a>Ver más</a>
-                  </p>
+                  <p>{item.data.content}</p>
                 </div>
               </div>
             );

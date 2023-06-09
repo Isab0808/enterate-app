@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Menu.css";
 import { TiHome } from "react-icons/ti";
-import { BiPlus } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
+import { HiPlus } from "react-icons/hi";
+import { FaUser } from "react-icons/fa";
 
 import { ContentMediaMain } from "../ContentMediaMain.jsx";
 import { Profile } from "../Profile.jsx";
@@ -49,7 +49,7 @@ export function Menu() {
             onClick={() => change("profile")}
           >
             <svg className="icon">
-              <CgProfile size={30} />
+              <FaUser size={25} />
             </svg>
           </a>
         </div>
@@ -67,7 +67,7 @@ export function Menu() {
             onClick={() => change("add")}
           >
             <svg className="icon">
-              <BiPlus size={30} />
+              <HiPlus size={30} />
             </svg>
           </a>
         </div>

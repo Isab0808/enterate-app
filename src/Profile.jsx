@@ -68,8 +68,8 @@ export function Profile() {
   return (
     <div className="profile" id="profile">
       <div className="texture-profile">
-        <a id="logout" className="logout" onClick={() => logout()}>
-          <i>
+        <a id="logout" className="logout">
+          <i onClick={() => logout()}>
             <FiLogOut size={25} />
           </i>
         </a>
