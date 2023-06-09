@@ -14,6 +14,8 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FiLoader } from "react-icons/fi";
 import { async } from "@firebase/util";
 
+import fondoCategory from "../images/category.png";
+
 import { Menu } from "./Menu";
 
 export function Category(props) {
@@ -173,11 +175,7 @@ export function Category(props) {
         <div className="app">
           <div className="categora">
             <div className="encabezado">
-              <img
-                className="tramaIcon"
-                alt=""
-                src="/src/images/category.png"
-              />
+              <img className="tramaIcon" alt="" src={fondoCategory} />
               {/* <img className="iconcancelar" alt="" src={AiOutlineCloseCircle} /> */}
               <a className="iconcancelar">
                 <AiOutlineCloseCircle size={30} />
