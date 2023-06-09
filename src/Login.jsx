@@ -7,7 +7,7 @@ import {
 import { auth } from "./modules/firebase.js";
 
 import "./styles/Login.css";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+import { BsGoogle } from "react-icons/bs";
 
 import logoLogin from "./images/logo-login.png";
 
@@ -92,7 +92,7 @@ export function Login() {
                     onClick={handleGoogleSignIn}
                     disabled={loading}
                   >
-                    <FaGoogle />
+                    <BsGoogle size={25} />
                   </button>
                 </div>
                 <span>
